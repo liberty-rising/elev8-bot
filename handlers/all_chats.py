@@ -1,10 +1,7 @@
-import aiohttp
 import logging
 from telegram import Update, ChatMemberUpdated, ChatMember
 from telegram.ext import ContextTypes
 from telegram.error import TelegramError
-
-from settings import WEBHOOK_URL_TG_DATA_UPDATE, AUTHORIZED_USER_IDS
 
 async def handle_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.message or update.edited_message
