@@ -11,7 +11,7 @@ async def handle_supergroup_messages(update: Update, context: ContextTypes.DEFAU
 
     message = update.message or update.edited_message
 
-    logging.debug(f"Message details: {message.to_dict()}")
+    logging.info(f"Message details: {message.to_dict()}")
 
     if message.chat_id == ELEV8_COUNCIL_SUPERGROUP_ID: 
         await handle_elev8_council_supergroup_messages(update, context)

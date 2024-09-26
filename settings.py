@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get environment variables
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 WEBHOOK_URL_INTROS = os.getenv("WEBHOOK_URL_INTROS")
 WEBHOOK_URL_USERNAME_CHANGES = os.getenv("WEBHOOK_URL_USERNAME_CHANGES")
 WEBHOOK_URL_TG_DATA_UPDATE = os.getenv("WEBHOOK_URL_TG_DATA_UPDATE")
