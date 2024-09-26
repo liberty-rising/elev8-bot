@@ -1,12 +1,23 @@
 import logging
 import asyncio
+from aiohttp import web
 from telegram.ext import Application, CommandHandler, MessageHandler, ChatMemberHandler, filters
-
 from handlers.all_chats import handle_new_member, handle_all_messages, start
 from handlers.supergroups.elev8_council.elev8_council import collect_and_send_user_data
 from handlers.supergroups.supergroups import handle_supergroup_messages
 from settings import TOKEN
 
+
+async def health_check(request):
+    return web.Response(text="OK")
+
+async def run_web_server():
+    app = web.Application()
+    app.router.add_get('/health', health_check)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 8080)
+    await site.start()
 
 async def main() -> None:
     application = Application.builder().token(TOKEN).build()
@@ -22,6 +33,9 @@ async def main() -> None:
     # Chat member handlers
     application.add_handler(ChatMemberHandler(handle_new_member, ChatMemberHandler.CHAT_MEMBER))
 
+    # Start the web server for health checks
+    await run_web_server()
+    
     # Start the bot
     await application.initialize()
     await application.start()
